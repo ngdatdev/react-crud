@@ -7,8 +7,13 @@ import ModalUpdateUser from "./ModalUpdateUser";
 import ModalDeleteUser from "./ModalDeleteUser";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./TableUsers.scss";
-import _ from 'lodash'
-
+import _, { debounce } from "lodash";
+import { CSVLink } from "react-csv";
+const data = [
+  { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
+  { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
+  { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" },
+];
 const TableUsers = (props) => {
   const [listUsers, setListUsers] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -20,6 +25,8 @@ const TableUsers = (props) => {
 
   const [sortBy, setSortBy] = useState("asc");
   const [sortField, setSortField] = useState("id");
+
+  const [keyword, setKeyword] = useState("");
 
   const handleClose = () => {
     setIsShowModalAdd(false);
@@ -81,15 +88,49 @@ const TableUsers = (props) => {
     setListUsers(cloneListUser);
   };
 
+  const handleSearch = debounce((e) => {
+    const keyword = e.target.value;
+    if (keyword) {
+      let cloneListUser = _.cloneDeep(listUsers);
+      cloneListUser = cloneListUser.filter((u) => u.email.includes(keyword));
+      setListUsers(cloneListUser);
+    } else {
+      getUsers(1);
+    }
+  }, 300);
+
   return (
     <>
       <div className="my-3 add-new">
         <span>
           <b>List of users</b>
         </span>
-        <button onClick={handleAddNew} className="btn btn-success">
-          Add new user
-        </button>
+        <div className="group-btns">
+          <label htmlFor="export" className="btn btn-warning">
+          <i class="fa-solid fa-file-export"></i> Export
+          </label>
+          <input id="export" type="file" hidden/>
+          <CSVLink
+            data={data}
+            filename={"user.csv"}
+            className="btn btn-primary"
+          >
+            <i class="fa-solid fa-file-import"></i> Import
+            
+          </CSVLink>
+          <button onClick={handleAddNew} className="btn btn-success">
+          <i class="fa-solid fa-circle-plus"></i> Add User
+
+          </button>
+        </div>
+      </div>
+      <div className="col-4 my-2">
+        <input
+          className="form-control"
+          placeholder="Search user by email"
+          // value={keyword}
+          onChange={handleSearch}
+        />
       </div>
       <Table striped bordered hover>
         <thead>
