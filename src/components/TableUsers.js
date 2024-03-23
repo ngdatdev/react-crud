@@ -35,6 +35,22 @@ const TableUsers = (props) => {
   const [file, setFile] = useState();
   const fileInputRef = useRef(null);
 
+  useEffect(() => {
+    getUsers(1);
+  }, []);
+
+  const getUsers = async (page) => {
+    let res = await fetchAllUsers(page);
+    if (res) {
+      setListUsers(res.data);
+      setTotalPages(res.total_pages);
+    }
+  };
+
+  const handlePageClick = (e) => {
+    getUsers(e.selected + 1);
+  };
+  
   const handleClose = () => {
     setIsShowModalAdd(false);
     setIsShowModalUpdate(false);
@@ -70,21 +86,6 @@ const TableUsers = (props) => {
     let tempUsers = [].concat(listUsers);
     tempUsers.splice(index, 1);
     setListUsers(tempUsers);
-  };
-
-  useEffect(() => {
-    getUsers(1);
-  }, []);
-
-  const getUsers = async (page) => {
-    let res = await fetchAllUsers(page);
-    if (res) {
-      setListUsers(res.data);
-      setTotalPages(res.total_pages);
-    }
-  };
-  const handlePageClick = (e) => {
-    getUsers(e.selected + 1);
   };
 
   const handleSort = (sortby, sortfield) => {
@@ -142,9 +143,9 @@ const TableUsers = (props) => {
   //   console.log(text);
   // };
   const handleChangeFile = (e) => {
-    alert('You want to submit this file ', e.target?.files[0]?.name)
-    handleExportfile(e)
-  }
+    alert("You want to submit this file ", e.target?.files[0]?.name);
+    handleExportfile(e);
+  };
   const handleExportfile = (e) => {
     if (e.target?.files[0]) {
       const file = e.target.files[0];
@@ -179,8 +180,8 @@ const TableUsers = (props) => {
             });
             setListUsers([]);
             setTimeout(() => setListUsers(result), 1000);
-            if(fileInputRef.current) {
-              fileInputRef.current.value = null
+            if (fileInputRef.current) {
+              fileInputRef.current.value = null;
             }
           }
         },
@@ -200,7 +201,13 @@ const TableUsers = (props) => {
           <label htmlFor="export" className="btn btn-warning">
             <i className="fa-solid fa-file-export"></i> Export
           </label>
-          <input id="export" type="file" hidden onChange={handleChangeFile} ref={fileInputRef} />
+          <input
+            id="export"
+            type="file"
+            hidden
+            onChange={handleChangeFile}
+            ref={fileInputRef}
+          />
           <CSVLink
             data={dataImport}
             filename={"user.csv"}
