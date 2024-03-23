@@ -1,0 +1,73 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    .title {
+        padding-top: 100px;
+        padding-bottom: 15px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .info-text {
+        font-weight: 500;
+        opacity: 0.9;
+        margin-bottom: 1px;
+    }
+
+    input {
+        margin: 4px 0;
+        padding: 8px 10px;
+        border: solid 1px rgb(227, 233, 233) ;
+        outline: none;
+        &:hover {
+            background-color: rgb(241, 242, 244);
+        }
+    }
+
+    button {
+        outline: none;
+        border: none;
+        border-radius: 2px;
+        padding: 12px 0;
+        letter-spacing: 1.4px;
+        font-weight: bold;
+        color: rgb(103, 105, 107);
+        margin-top: 16px;
+    }
+
+    button[disabled=disabled], button:disabled {
+        cursor: not-allowed;
+    }
+
+    .backward {
+        margin-top: 20px;
+        text-align: center;
+        color: rgb(61, 65, 63);
+        font-size: 16px;
+        font-weight: 700;
+        &:hover {
+            color: rgb(8, 66, 142);
+            cursor: pointer;
+        }
+    }
+
+    .eyes {
+        position: relative;
+        i {
+            bottom: 15px;
+            right: 10px;
+            position: absolute;
+            cursor: pointer;
+        }
+    }
+    
+
+    .active {
+        background-color: rgb(243, 92, 92);
+        color: #fff;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+}

@@ -21,7 +21,7 @@ const Header = (props) => {
             </Nav>
             <Nav>
               <NavDropdown title="Setting" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.2">
+                <NavDropdown.Item href="login">
                   Login
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
