@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { deleteRemoveUser, putUpdateUser } from "../services/UserService";
+import { deleteRemoveUser } from "../services/UserService";
 import { toast } from "react-toastify";
 
 const ModalDeleteUser = (props) => {
