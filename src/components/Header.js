@@ -7,6 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "./context/contextUser";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { NavItem } from "react-bootstrap";
 
 const Header = (props) => {
   const { userAuth, logoutContext } = useAuth();
@@ -59,9 +60,9 @@ const Header = (props) => {
                 id="basic-nav-dropdown"
               >
                 <NavDropdown.Item>
-                  <NavLink className="nav-link" onClick={handleLogout}>
+                  <NavItem className="nav-link " onClick={handleLogout}>
                     Log Out
-                  </NavLink>
+                  </NavItem>
                 </NavDropdown.Item>
               </NavDropdown>
             )}

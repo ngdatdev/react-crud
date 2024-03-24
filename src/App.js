@@ -1,14 +1,12 @@
 import Container from "react-bootstrap/esm/Container";
 import "./App.scss";
 import Header from "./components/Header";
-import TableUsers from "./components/TableUsers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes } from "react-router";
-import Home from "./components/Home";
-import Login from "./components/Login";
 import { useAuth } from "./components/context/contextUser";
 import { useEffect } from "react";
+import AppRoute from "./components/routes/AppRoute";
 function App() {
   const {loginContext } = useAuth()
 
@@ -26,11 +24,7 @@ function App() {
       <div className="app-container">
         <Header />
         <Container>
-          <Routes>
-            <Route index element={<Home />} />
-            <Route path="/users" element={<TableUsers />} />
-            <Route path="/login" element={<Login />} />
-          </Routes>
+            <AppRoute />
         </Container>
       </div>
       <ToastContainer
