@@ -7,8 +7,20 @@ import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes } from "react-router";
 import Home from "./components/Home";
 import Login from "./components/Login";
-
+import { useAuth } from "./components/context/contextUser";
+import { useEffect } from "react";
 function App() {
+  const {loginContext } = useAuth()
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      loginContext(
+        localStorage.getItem("email"),
+        localStorage.getItem("token")
+      );
+    }
+  }, []);
+
   return (
     <>
       <div className="app-container">
