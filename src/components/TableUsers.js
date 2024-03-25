@@ -50,7 +50,7 @@ const TableUsers = (props) => {
   const handlePageClick = (e) => {
     getUsers(e.selected + 1);
   };
-  
+
   const handleClose = () => {
     setIsShowModalAdd(false);
     setIsShowModalUpdate(false);
@@ -193,11 +193,11 @@ const TableUsers = (props) => {
 
   return (
     <>
-      <div className="my-3 add-new">
+      <div className="my-3 add-new d-sm-flex">
         <span>
           <b>List of users</b>
         </span>
-        <div className="group-btns">
+        <div className="group-btns mt-sm-0 mt-2">
           <label htmlFor="export" className="btn btn-warning">
             <i className="fa-solid fa-file-export"></i> Export
           </label>
@@ -222,7 +222,7 @@ const TableUsers = (props) => {
           </button>
         </div>
       </div>
-      <div className="col-4 my-2">
+      <div className="sm-col-4 col-12 my-2">
         <input
           className="form-control"
           placeholder="Search user by email"
@@ -230,109 +230,112 @@ const TableUsers = (props) => {
           onChange={handleSearch}
         />
       </div>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>
-              <div className="header-sort">
-                <span>ID</span>
-                <span>
-                  <i
-                    className="fa-solid fa-arrow-down"
-                    onClick={() => handleSort("desc", "id")}
-                  ></i>
-                  <i
-                    className="fa-solid fa-arrow-up"
-                    onClick={() => handleSort("asc", "id")}
-                  ></i>
-                </span>
-              </div>
-            </th>
-            <th>Email</th>
-            <th>
-              <div className="header-sort">
-                <span>First Name</span>
-                <span>
-                  <i
-                    className="fa-solid fa-arrow-down"
-                    onClick={() => handleSort("desc", "first_name")}
-                  ></i>
-                  <i
-                    className="fa-solid fa-arrow-up"
-                    onClick={() => handleSort("asc", "first_name")}
-                  ></i>
-                </span>
-              </div>
-            </th>
-            <th>Last Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listUsers.map((item, index) => {
-            return (
-              <tr key={`user-${index}`}>
-                <td>{item.id}</td>
-                <td>{item.email}</td>
-                <td>{item.first_name}</td>
-                <td>{item.last_name}</td>
-                <td className="m-3">
-                  <button
-                    className="btn btn-danger mx-2"
-                    onClick={() => handleUpdateUser(item)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => handleDeleteUser(item)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={totalPages}
-        previousLabel="< previous"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-        renderOnZeroPageCount={null}
-      />
-      <ModalAddNew
-        handleAddUser={handleAddUser}
-        show={isShowModalAdd}
-        handleClose={handleClose}
-      />
+      <div className="table-container">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>
+                <div className="header-sort">
+                  <span>ID</span>
+                  <span>
+                    <i
+                      className="fa-solid fa-arrow-down"
+                      onClick={() => handleSort("desc", "id")}
+                    ></i>
+                    <i
+                      className="fa-solid fa-arrow-up"
+                      onClick={() => handleSort("asc", "id")}
+                    ></i>
+                  </span>
+                </div>
+              </th>
+              <th>Email</th>
+              <th>
+                <div className="header-sort">
+                  <span>First Name</span>
+                  <span>
+                    <i
+                      className="fa-solid fa-arrow-down"
+                      onClick={() => handleSort("desc", "first_name")}
+                    ></i>
+                    <i
+                      className="fa-solid fa-arrow-up"
+                      onClick={() => handleSort("asc", "first_name")}
+                    ></i>
+                  </span>
+                </div>
+              </th>
+              <th>Last Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listUsers.map((item, index) => {
+              return (
+                <tr key={`user-${index}`}>
+                  <td>{item.id}</td>
+                  <td>{item.email}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
+                  <td className="m-3">
+                    <button
+                      className="btn btn-danger mx-2"
+                      onClick={() => handleUpdateUser(item)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => handleDeleteUser(item)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+        <ReactPaginate
+          className="pagination"
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={totalPages}
+          previousLabel="< previous"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+          renderOnZeroPageCount={null}
+        />
+        <ModalAddNew
+          handleAddUser={handleAddUser}
+          show={isShowModalAdd}
+          handleClose={handleClose}
+        />
 
-      <ModalUpdateUser
-        handleUpdateUseFromModal={handleUpdateUseFromModal}
-        dataUserUpdate={dataUserUpdate}
-        show={isShowModalUpdate}
-        handleClose={handleClose}
-      />
+        <ModalUpdateUser
+          handleUpdateUseFromModal={handleUpdateUseFromModal}
+          dataUserUpdate={dataUserUpdate}
+          show={isShowModalUpdate}
+          handleClose={handleClose}
+        />
 
-      <ModalDeleteUser
-        handleDeleteUseFromModal={handleDeleteUseFromModal}
-        dataUserDelete={dataUserDelete}
-        show={isShowModalDelete}
-        handleClose={handleClose}
-      />
+        <ModalDeleteUser
+          handleDeleteUseFromModal={handleDeleteUseFromModal}
+          dataUserDelete={dataUserDelete}
+          show={isShowModalDelete}
+          handleClose={handleClose}
+        />
+      </div>
     </>
   );
 };

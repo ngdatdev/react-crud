@@ -13,13 +13,6 @@ const Login = () => {
   const navigate = useNavigate();
   const { loginContext } = useAuth();
 
-  // useEffect(() => {
-  //   let token = localStorage.getItem("token");
-  //   if (token) {
-  //     navigate("/");
-  //   }
-  // }, []);
-
   const handleLogin = async () => {
     if (!email || !password) {
       toast.error("Email/password is empty");
@@ -28,13 +21,19 @@ const Login = () => {
     setIsLoadApi(true);
     let res = await postLoginUser("eve.holt@reqres.in", "pistol");
     if (res?.token) {
-      loginContext(email, res.token)
+      loginContext(email.trim(), res.token)
       navigate("/users");
     } else {
       if (res?.status === 400) toast.error(res?.data?.error);
     }
     setIsLoadApi(false);
   };
+
+  const handleEnter = (e) => {
+    if(e.key === 'Enter') {
+      handleLogin()
+    }
+  }
 
   const handleBackward = () => {
     navigate('/')
@@ -51,6 +50,7 @@ const Login = () => {
           setEmail(e.target.value);
         }}
         placeholder="Email or username"
+        onKeyDown={handleEnter}
       />
       <input
         type={isshowPassword ? "password" : "text"}
@@ -59,6 +59,8 @@ const Login = () => {
           setPassword(e.target.value);
         }}
         placeholder="Password"
+        onKeyDown={handleEnter}
+
       />
       <div className="eyes">
         <i

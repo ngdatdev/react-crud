@@ -1,6 +1,6 @@
 .app-container {
   .add-new {
-    display: flex;
+    // display: flex;
     align-items: center;
     justify-content: space-between;
 
@@ -9,7 +9,16 @@
       gap: 4px;
       align-items: center;
     }
+
+    
   }
+  .table-container {
+    width: inherit;
+    overflow-x: auto;
+    .pagination {
+      justify-content: center
+    }
+}
 }
 
 .header-sort {

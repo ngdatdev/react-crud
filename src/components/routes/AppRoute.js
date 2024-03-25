@@ -3,6 +3,7 @@ import Login from "../Login";
 import Home from "../Home"
 import { Route, Routes } from "react-router";
 import PrivateRoute from "./PrivateRoute";
+import { NotFound } from "./NotFound";
 
 const AppRoute = () => {
   return (
@@ -14,6 +15,7 @@ const AppRoute = () => {
         </PrivateRoute>
       } />
       <Route path="/login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
